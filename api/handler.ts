@@ -11,6 +11,7 @@ export const create: Handler = async (event: any, context: Context) => {
       code: 1,
       message: 2,
       data: 3,
+    }),
   };
 };
 
