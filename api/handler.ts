@@ -11,6 +11,18 @@ export const create: Handler = async (event: any, context: Context) => {
       code: 1,
       message: 2,
       data: 3,
+  };
+};
+
+export const update: Handler = async (event: any, context: Context) => {
+  await createService();
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      code: 1,
+      message: 2,
+      data: 3,
     }),
   };
 };
