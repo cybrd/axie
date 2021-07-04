@@ -1,0 +1,27 @@
+{
+  "name": "axie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "serverless deploy",
+    "offline": "serverless offline"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-lambda": "^1.0.6",
+    "aws-sdk": "^2.939.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.77",
+    "serverless-offline": "^7.0.0",
+    "serverless-webpack": "^5.5.1",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "^5.42.0",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

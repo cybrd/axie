@@ -1,0 +1,35 @@
+service: axie-api
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-northeast-1
+  profile: axie-admin
+  lambdaHashingVersion: 20201221
+  iam:
+    role:
+      name: ${self:provider.profile}
+      statements:
+        - Effect: Allow
+          Resource: "*"
+          NotAction: "iam:DeleteUser"
+
+custom:
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
+
+package:
+  individually: true
+
+functions:
+  create:
+    handler: api/index.create
+
+    events:
+      - http: GET /
