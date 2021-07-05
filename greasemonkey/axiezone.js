@@ -10,6 +10,7 @@
 
 // start page: https://axie.zone/finder?search=breed_count:0;view_genes
 
+let start = 0;
 let timeout;
 const resultsNode = $("#search_result_container")[0];
 const config = { attributes: true, childList: true, subtree: true };
@@ -85,7 +86,6 @@ async function resultsCB() {
   });
 
   if (axieNodes.length) {
-    console.log(JSON.stringify(requestObj));
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -95,10 +95,17 @@ async function resultsCB() {
     });
     response.json().then((data) => {
       console.log(data);
+      console.log(start);
 
-      setTimeout(function () {
-        $("div.page_nav i.right:eq(0)").click();
-      }, 2000);
+      if (start) {
+        setTimeout(function () {
+          $("div.page_nav i.right:eq(0)").click();
+        }, 2000);
+      }
     });
   }
 }
+
+$("div.page_nav i.right:eq(0)").on("click", function () {
+  start = 1;
+});
