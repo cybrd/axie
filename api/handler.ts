@@ -1,29 +1,24 @@
 import { Handler, Context } from "aws-lambda";
 
-import { create as createService } from "./services/create";
+import { scan as scanService } from "./services/scan";
+import { update as updateService } from "./services/update";
 
-export const create: Handler = async (event: any, context: Context) => {
-  await createService();
+export const scan: Handler = async (event: any, context: Context) => {
+  const results = await scanService();
 
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      code: 1,
-      message: 2,
-      data: 3,
-    }),
+    body: JSON.stringify(results),
   };
 };
 
 export const update: Handler = async (event: any, context: Context) => {
-  await createService();
+  console.log(JSON.parse(event.body));
+
+  const results = await Promise.all(updateService(JSON.parse(event.body)));
 
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      code: 1,
-      message: 2,
-      data: 3,
-    }),
+    body: JSON.stringify(results),
   };
 };

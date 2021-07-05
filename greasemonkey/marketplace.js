@@ -8,10 +8,12 @@
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
 // ==/UserScript==
 
+// start page: https://marketplace.axieinfinity.com/axie?stage=4&breedCount=0
+
 let timeout;
 const resultsNode = $("div.flex-1.overflow-y-auto.px-8.py-12")[0];
 const config = { attributes: true, childList: true, subtree: true };
-const callback = function (mutationsList, observer) {
+const callback = function (mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
       clearTimeout(timeout);
@@ -22,9 +24,14 @@ const callback = function (mutationsList, observer) {
 const observer = new MutationObserver(callback);
 observer.observe(resultsNode, config);
 
-function resultsCB() {
+async function resultsCB() {
+  const apiUrl =
+    "https://9u3ci8qny8.execute-api.ap-northeast-1.amazonaws.com/dev/update";
+
   const axieNodes = $("div.m-8.cursor-pointer");
   console.log(axieNodes.length);
+
+  const requestObj = [];
 
   axieNodes.each(function () {
     const id = $("a", this).attr("href").substr(6);
@@ -40,5 +47,20 @@ function resultsCB() {
       price,
     };
     console.log(axieObj);
+
+    requestObj.push(axieObj);
   });
+
+  if (axieNodes.length) {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestObj),
+    });
+    response.json().then((data) => {
+      console.log(data);
+    });
+  }
 }

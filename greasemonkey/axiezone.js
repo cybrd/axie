@@ -8,10 +8,12 @@
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
 // ==/UserScript==
 
+// start page: https://axie.zone/finder?search=breed_count:0;view_genes
+
 let timeout;
 const resultsNode = $("#search_result_container")[0];
 const config = { attributes: true, childList: true, subtree: true };
-const callback = function (mutationsList, observer) {
+const callback = function (mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
       clearTimeout(timeout);
@@ -22,7 +24,10 @@ const callback = function (mutationsList, observer) {
 const observer = new MutationObserver(callback);
 observer.observe(resultsNode, config);
 
-function resultsCB() {
+async function resultsCB() {
+  const apiUrl =
+    "https://9u3ci8qny8.execute-api.ap-northeast-1.amazonaws.com/dev/update";
+
   const axieNodes = $(".search_result_wrapper.result_genes");
   console.log(axieNodes.length);
 
@@ -50,6 +55,7 @@ function resultsCB() {
     const tail1 = $("tr.tail td:eq(1)", this).html();
     const tail2 = $("tr.tail td:eq(2)", this).html();
     const tail3 = $("tr.tail td:eq(3)", this).html();
+    const price = $("div.price", this).html().substr(2);
     const axieObj = {
       id,
       breedCount,
@@ -71,9 +77,28 @@ function resultsCB() {
       tail1,
       tail2,
       tail3,
+      price,
     };
     console.log(axieObj);
 
     requestObj.push(axieObj);
   });
+
+  if (axieNodes.length) {
+    console.log(JSON.stringify(requestObj));
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestObj),
+    });
+    response.json().then((data) => {
+      console.log(data);
+
+      setTimeout(function () {
+        $("div.page_nav i.right:eq(0)").click();
+      }, 2000);
+    });
+  }
 }
