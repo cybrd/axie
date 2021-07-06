@@ -8,6 +8,7 @@ export const scan: Handler = async (event) => {
 
   return {
     statusCode: 200,
+    headers: { "Access-Control-Allow-Origin": "*" },
     body: JSON.stringify(results),
   };
 };
@@ -17,6 +18,7 @@ export const update: Handler = async (event) => {
 
   return {
     statusCode: 200,
+    headers: { "Access-Control-Allow-Origin": "*" },
     body: JSON.stringify(results),
   };
 };

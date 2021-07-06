@@ -27,7 +27,7 @@ observer.observe(resultsNode, config);
 
 async function resultsCB() {
   const apiUrl =
-    "https://9u3ci8qny8.execute-api.ap-northeast-1.amazonaws.com/dev/update";
+    "https://dxmwof9qec.execute-api.ap-northeast-1.amazonaws.com/dev/update";
 
   const axieNodes = $(".search_result_wrapper.result_genes");
   console.log(axieNodes.length);

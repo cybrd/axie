@@ -29,12 +29,16 @@ package:
 functions:
   scan:
     handler: api/handler.scan
-
     events:
-      - http: GET /scan
+      - http:
+          path: /scan
+          method: get
+          cors: true
 
   update:
     handler: api/handler.update
-
     events:
-      - http: POST /update
+      - http:
+          path: /update
+          method: post
+          cors: true
