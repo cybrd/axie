@@ -18,7 +18,7 @@ const callback = function (mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
       clearTimeout(timeout);
-      timeout = setTimeout(resultsCB, 2000);
+      timeout = setTimeout(resultsCB, 1000);
     }
   }
 };
@@ -100,7 +100,7 @@ async function resultsCB() {
       if (start) {
         setTimeout(function () {
           $("div.page_nav i.right:eq(0)").click();
-        }, 2000);
+        }, 1000);
       }
     });
   }

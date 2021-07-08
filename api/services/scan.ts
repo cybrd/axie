@@ -13,6 +13,7 @@ export const scan = async (body: string) => {
     const params: AWS.DynamoDB.DocumentClient.ScanInput = {
       TableName: "axie",
       ExclusiveStartKey: key,
+      Limit: 1000,
     };
 
     return docClient.scan(params).promise();
