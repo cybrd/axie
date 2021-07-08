@@ -4,7 +4,9 @@ import { scan as scanService } from "./services/scan";
 import { update as updateService } from "./services/update";
 
 export const scan: Handler = async (event) => {
-  const results = await scanService(JSON.parse(event.body));
+  const results = await scanService(
+    event.pathParameters ? event.pathParameters.id : ""
+  );
 
   return {
     statusCode: 200,

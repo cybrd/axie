@@ -31,7 +31,11 @@ functions:
     handler: api/handler.scan
     events:
       - http:
-          path: /scan
+          path: /scan/{id}
+          method: get
+          cors: true
+      - http:
+          path: /scan/
           method: get
           cors: true
 
