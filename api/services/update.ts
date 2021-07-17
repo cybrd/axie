@@ -4,8 +4,6 @@ export const update = (body: any[]) => {
   const promises: Promise<any>[] = [];
 
   for (const data of body) {
-    console.log(data);
-
     try {
       const id = data.id;
       delete data.id;

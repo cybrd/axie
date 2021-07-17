@@ -18,7 +18,7 @@ const callback = function (mutationsList) {
   for (const mutation of mutationsList) {
     if (mutation.type === "childList") {
       clearTimeout(timeout);
-      timeout = setTimeout(resultsCB, 1000);
+      timeout = setTimeout(resultsCB, 2000);
     }
   }
 };
@@ -57,6 +57,26 @@ async function resultsCB() {
     const tail2 = $("tr.tail td:eq(2)", this).html();
     const tail3 = $("tr.tail td:eq(3)", this).html();
     const price = $("div.price", this).html().substr(2);
+
+    const eye1class = $("tr.eyes td:eq(1)", this).attr("class");
+    const eye2class = $("tr.eyes td:eq(2)", this).attr("class");
+    const eye3class = $("tr.eyes td:eq(3)", this).attr("class");
+    const ear1class = $("tr.ears td:eq(1)", this).attr("class");
+    const ear2class = $("tr.ears td:eq(2)", this).attr("class");
+    const ear3class = $("tr.ears td:eq(3)", this).attr("class");
+    const back1class = $("tr.back td:eq(1)", this).attr("class");
+    const back2class = $("tr.back td:eq(2)", this).attr("class");
+    const back3class = $("tr.back td:eq(3)", this).attr("class");
+    const mouth1class = $("tr.mouth td:eq(1)", this).attr("class");
+    const mouth2class = $("tr.mouth td:eq(2)", this).attr("class");
+    const mouth3class = $("tr.mouth td:eq(3)", this).attr("class");
+    const horn1class = $("tr.horn td:eq(1)", this).attr("class");
+    const horn2class = $("tr.horn td:eq(2)", this).attr("class");
+    const horn3class = $("tr.horn td:eq(3)", this).attr("class");
+    const tail1class = $("tr.tail td:eq(1)", this).attr("class");
+    const tail2class = $("tr.tail td:eq(2)", this).attr("class");
+    const tail3class = $("tr.tail td:eq(3)", this).attr("class");
+
     const axieObj = {
       id,
       breedCount,
@@ -79,11 +99,29 @@ async function resultsCB() {
       tail2,
       tail3,
       price,
+      eye1class,
+      eye2class,
+      eye3class,
+      ear1class,
+      ear2class,
+      ear3class,
+      back1class,
+      back2class,
+      back3class,
+      mouth1class,
+      mouth2class,
+      mouth3class,
+      horn1class,
+      horn2class,
+      horn3class,
+      tail1class,
+      tail2class,
+      tail3class,
     };
-    console.log(axieObj);
 
     requestObj.push(axieObj);
   });
+  console.log(requestObj[0]);
 
   if (axieNodes.length) {
     const response = await fetch(apiUrl, {
@@ -100,7 +138,7 @@ async function resultsCB() {
       if (start) {
         setTimeout(function () {
           $("div.page_nav i.right:eq(0)").click();
-        }, 1000);
+        }, 2000);
       }
     });
   }
